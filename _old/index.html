@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="متجر سوني | MS Store — بيت الجيمرز في زوارة ليبيا. PlayStation, Xbox, Games, بطاقات & Accessories. 3.8K+ followers. Always open." />
+  <title>متجر سوني | MS Store — بيت الجيمرز · Zuwarah, Libya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="auth.js" defer></script>
+</head>
+<body>
+
+  <!-- Top Trust Bar -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <div class="trust-item">
+        <i class="fab fa-facebook-f"></i>
+        <span><strong>3.8K</strong> Followers · 100% Recommend</span>
+      </div>
+      <div class="trust-item">
+        <i class="fas fa-shield-halved"></i>
+        <span><strong>100%</strong> منتجات أصلية · Authentic</span>
+      </div>
+      <div class="trust-item">
+        <i class="fas fa-location-dot"></i>
+        <span>زوارة ليبيا · <strong>Zuwarah, Libya</strong></span>
+      </div>
+      <div class="trust-item">
+        <i class="fas fa-clock"></i>
+        <span>متاح دائماً · <strong>Always Open</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <div class="logo-hex">
+          <span class="logo-hex-ms">MS</span>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">متجر <span class="accent">سوني</span></span>
+          <span class="logo-tagline">بيت الجيمرز · MS Store</span>
+        </div>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <div class="search-wrapper">
+          <select class="search-category" id="searchCategory">
+            <option value="all">All Categories</option>
+            <option value="playstation">PlayStation</option>
+            <option value="xbox">Xbox</option>
+            <option value="pc">PC Gaming</option>
+            <option value="games">Games</option>
+            <option value="accessories">Accessories</option>
+          </select>
+          <input type="text" class="search-input" id="searchInput" placeholder="Search for PlayStation 5, RTX 4070, gaming headset..." autocomplete="off" />
+          <button class="search-btn" id="searchBtn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="search-suggestions" id="searchSuggestions"></div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="#" class="header-action" id="accountBtn">
+          <i class="fas fa-user"></i>
+          <span>Account</span>
+        </a>
+        <a href="#" class="header-action" id="wishlistBtn">
+          <i class="fas fa-heart"></i>
+          <span>Wishlist</span>
+          <span class="badge" id="wishlistBadge">0</span>
+        </a>
+        <a href="#" class="header-action cart-action" id="cartBtn">
+          <i class="fas fa-shopping-cart"></i>
+          <span>Cart</span>
+          <span class="badge" id="cartBadge">0</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle" id="mobileToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Platform Navigation -->
+    <nav class="nav" id="mainNav">
+      <div class="nav-inner">
+        <a href="javascript:void(0)" class="nav-link active" data-category="all">
+          <i class="fas fa-fire"></i> Hot Deals
+        </a>
+        <a href="javascript:void(0)" class="nav-link" data-category="playstation">
+          <i class="fab fa-playstation"></i> PlayStation
+        </a>
+        <a href="javascript:void(0)" class="nav-link" data-category="xbox">
+          <i class="fab fa-xbox"></i> Xbox
+        </a>
+        <a href="javascript:void(0)" class="nav-link" data-category="pc">
+          <i class="fas fa-desktop"></i> PC Gaming
+        </a>
+        <a href="javascript:void(0)" class="nav-link" data-category="games">
+          <i class="fas fa-compact-disc"></i> Games
+        </a>
+        <a href="javascript:void(0)" class="nav-link" data-category="accessories">
+          <i class="fas fa-headset"></i> Accessories
+        </a>
+        <a href="javascript:void(0)" class="nav-link" data-category="monitors">
+          <i class="fas fa-tv"></i> Monitors
+        </a>
+        <a href="#blog" class="nav-link">
+          <i class="fas fa-newspaper"></i> Guides
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="heroSection">
+    <!-- AI-generated Higgsfield video background -->
+    <div class="hero-video-wrap" id="heroVideoWrap">
+      <video class="hero-video-bg" id="heroBgVideo" autoplay muted loop playsinline preload="auto">
+        <source src="hero-bg.mp4" type="video/mp4">
+      </video>
+      <div class="hero-glitch-layer" id="heroGlitchLayer"></div>
+      <div class="hero-scanlines"></div>
+      <div class="hero-chromatic"></div>
+      <div class="hero-vignette"></div>
+      <div class="hero-particles" id="heroParticles"></div>
+    </div>
+
+    <div class="hero-slider" id="heroSlider">
+      <!-- Slide 1 — PS5 -->
+      <div class="hero-slide active" data-slide="0">
+        <div class="hero-bg hero-bg-ps5"></div>
+        <div class="hero-content">
+          <div class="hero-badge" style="background: var(--accent);">✨ وصل حديثاً · New Arrival</div>
+          <h1 class="hero-title">PlayStation 5 Slim</h1>
+          <p class="hero-subtitle">اكتشف القوة الحقيقية للألعاب. جهاز PS5 الأصلي متوفر الآن في متجر سوني زوارة — مع ضمان كامل.</p>
+          <div class="hero-price">
+            <span class="hero-price-current">2,499 LYD</span>
+            <span class="hero-price-old">2,899 LYD</span>
+            <span class="hero-price-save">وفر 400 د.ل</span>
+          </div>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg">
+              <i class="fas fa-shopping-cart"></i> أضف للسلة · Add to Cart
+            </button>
+            <button class="btn btn-outline btn-lg">
+              <i class="fas fa-eye"></i> التفاصيل
+            </button>
+          </div>
+          <div class="hero-delivery">
+            <i class="fab fa-whatsapp"></i>
+            تواصل معنا على واتساب · <strong>In-store pickup available · Zuwarah</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 — Xbox -->
+      <div class="hero-slide" data-slide="1">
+        <div class="hero-bg hero-bg-xbox"></div>
+        <div class="hero-content">
+          <div class="hero-badge" style="background: var(--xbox);">Xbox Series S</div>
+          <h1 class="hero-title">Xbox Series S</h1>
+          <p class="hero-subtitle">متوفر الآن في متجر سوني — استعمال بسيط جدا بالباكو وملحقاته الأصليه. The next generation at the best price.</p>
+          <div class="hero-price">
+            <span class="hero-price-current">1,899 LYD</span>
+            <span class="hero-price-old">2,199 LYD</span>
+            <span class="hero-price-save">وفر 300 د.ل</span>
+          </div>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" style="background: var(--xbox);">
+              <i class="fas fa-shopping-cart"></i> أضف للسلة
+            </button>
+            <button class="btn btn-outline btn-lg">
+              <i class="fas fa-eye"></i> التفاصيل
+            </button>
+          </div>
+          <div class="hero-delivery">
+            <i class="fas fa-store"></i>
+            استلام من المتجر · In-store pickup — <strong>Zuwarah, Libya</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 — FC26 Downloads -->
+      <div class="hero-slide" data-slide="2">
+        <div class="hero-bg hero-bg-games"></div>
+        <div class="hero-content">
+          <div class="hero-badge" style="background: var(--games);">🎮 تحميل حصري</div>
+          <h1 class="hero-title">EA Sports FC 26</h1>
+          <p class="hero-subtitle">متوفرة تنزيل — أونلاين وأوفلاين. العب FC 26 بأقل سعر في ليبيا. Available online &amp; offline download.</p>
+          <div class="hero-price">
+            <span class="hero-price-current">85 LYD</span>
+            <span class="hero-price-old">120 LYD</span>
+            <span class="hero-price-save">وفر 35 د.ل</span>
+          </div>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" style="background: var(--games);">
+              <i class="fas fa-download"></i> اشتري الآن
+            </button>
+            <button class="btn btn-outline btn-lg">
+              <i class="fas fa-info-circle"></i> مزيد من المعلومات
+            </button>
+          </div>
+          <div class="hero-delivery">
+            <i class="fas fa-bolt"></i>
+            تسليم فوري · <strong>Instant delivery after payment</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slider Controls -->
+    <div class="hero-controls">
+      <button class="hero-arrow hero-prev" id="heroPrev"><i class="fas fa-chevron-left"></i></button>
+      <div class="hero-dots" id="heroDots">
+        <button class="hero-dot active" data-slide="0"></button>
+        <button class="hero-dot" data-slide="1"></button>
+        <button class="hero-dot" data-slide="2"></button>
+      </div>
+      <button class="hero-arrow hero-next" id="heroNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- Flash Deals Section -->
+  <section class="section flash-deals" id="deals">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2 class="section-title"><i class="fas fa-bolt"></i> Flash Deals</h2>
+          <p class="section-subtitle">Ends in <span class="deal-timer" id="dealTimer">07:42:18</span></p>
+        </div>
+        <a href="#" class="section-link">View All Deals <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="deals-grid" id="dealsGrid">
+        <div class="grid-loading"><i class="fas fa-spinner fa-spin"></i></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Featured Products -->
+  <section class="section featured" id="featured">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2 class="section-title"><i class="fas fa-crown"></i> Best Sellers</h2>
+          <p class="section-subtitle">Most popular products this week</p>
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="playstation">PlayStation</button>
+          <button class="filter-tab" data-filter="xbox">Xbox</button>
+          <button class="filter-tab" data-filter="pc">PC</button>
+          <button class="filter-tab" data-filter="games">Games</button>
+          <button class="filter-tab" data-filter="accessories">Accessories</button>
+          <button class="filter-tab" data-filter="monitors">Monitors</button>
+        </div>
+      </div>
+
+      <div id="productsGrid">
+        <div class="grid-loading"><i class="fas fa-spinner fa-spin"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loyalty Program -->
+  <section class="section loyalty" id="loyalty">
+    <div class="container">
+      <div class="loyalty-card">
+        <div class="loyalty-content">
+          <div class="loyalty-badge"><i class="fas fa-gem"></i> Tech Rewards</div>
+          <h2 class="loyalty-title">Join Tech Rewards &mdash; Earn on Every Purchase</h2>
+          <p class="loyalty-text">Earn 1 point per LYD spent. Redeem for discounts, exclusive deals, and early access to new releases. Free to join, impossible to leave.</p>
+          <div class="loyalty-tiers">
+            <div class="tier">
+              <div class="tier-icon bronze"><i class="fas fa-medal"></i></div>
+              <div class="tier-name">Bronze</div>
+              <div class="tier-req">0 - 999 pts</div>
+              <div class="tier-perk">2% back</div>
+            </div>
+            <div class="tier">
+              <div class="tier-icon silver"><i class="fas fa-medal"></i></div>
+              <div class="tier-name">Silver</div>
+              <div class="tier-req">1,000 - 4,999</div>
+              <div class="tier-perk">5% back + Free Shipping</div>
+            </div>
+            <div class="tier">
+              <div class="tier-icon gold"><i class="fas fa-trophy"></i></div>
+              <div class="tier-name">Gold</div>
+              <div class="tier-req">5,000+</div>
+              <div class="tier-perk">10% back + Priority</div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-lg"><i class="fas fa-crown"></i> Join Free Now</button>
+        </div>
+        <div class="loyalty-visual">
+          <div class="loyalty-card-preview">
+            <div class="card-chip"></div>
+            <div class="card-logo">SONY<span>STORE</span></div>
+            <div class="card-number">**** **** **** 7291</div>
+            <div class="card-details">
+              <div><span>MEMBER SINCE</span><strong>2026</strong></div>
+              <div><span>STATUS</span><strong>GOLD</strong></div>
+            </div>
+            <div class="card-points">12,450 PTS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Partners -->
+  <section class="section brands">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2 class="section-title">Official Brand Partners</h2>
+          <p class="section-subtitle">Authorized retailer for the world's top gaming brands</p>
+        </div>
+      </div>
+      <div class="brands-ticker">
+        <div class="brands-track">
+          <div class="brand-item"><span>NVIDIA</span><small>Elite Partner</small></div>
+          <div class="brand-item"><span>AMD</span><small>Authorized</small></div>
+          <div class="brand-item"><span>Intel</span><small>Platinum</small></div>
+          <div class="brand-item"><span>Sony</span><small>Official</small></div>
+          <div class="brand-item"><span>Microsoft</span><small>Authorized</small></div>
+          <div class="brand-item"><span>Samsung</span><small>Partner</small></div>
+          <div class="brand-item"><span>Corsair</span><small>Official</small></div>
+          <div class="brand-item"><span>Razer</span><small>Authorized</small></div>
+          <div class="brand-item"><span>SteelSeries</span><small>Partner</small></div>
+          <div class="brand-item"><span>Logitech</span><small>Authorized</small></div>
+          <div class="brand-item"><span>ASUS ROG</span><small>Elite</small></div>
+          <div class="brand-item"><span>MSI</span><small>Official</small></div>
+          <div class="brand-item"><span>NVIDIA</span><small>Elite Partner</small></div>
+          <div class="brand-item"><span>AMD</span><small>Authorized</small></div>
+          <div class="brand-item"><span>Intel</span><small>Platinum</small></div>
+          <div class="brand-item"><span>Sony</span><small>Official</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog / Guides -->
+  <section class="section blog" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <h2 class="section-title"><i class="fas fa-book-open"></i> Buying Guides & News</h2>
+          <p class="section-subtitle">Expert advice to help you make the right choice</p>
+        </div>
+        <a href="#" class="section-link">All Articles <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="blog-grid">
+        <article class="blog-card blog-featured">
+          <div class="blog-image">
+            <div class="blog-image-placeholder"><i class="fas fa-gamepad"></i></div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-tag">Guide</span>
+              <span class="blog-date">May 8, 2026</span>
+            </div>
+            <h3 class="blog-title">Best PS5 Accessories for 2026 — The Complete Guide</h3>
+            <p class="blog-excerpt">From the DualSense Edge to the Pulse 3D headset, we break down every must-have accessory for your PlayStation 5 setup.</p>
+            <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <div class="blog-image">
+            <div class="blog-image-placeholder"><i class="fas fa-microchip"></i></div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-tag">Comparison</span>
+              <span class="blog-date">May 5, 2026</span>
+            </div>
+            <h3 class="blog-title">RTX 5070 vs RTX 5080: Which GPU Should You Buy?</h3>
+            <p class="blog-excerpt">We benchmark both cards across 20 games to find the best price-to-performance ratio.</p>
+            <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <div class="blog-image">
+            <div class="blog-image-placeholder"><i class="fas fa-desktop"></i></div>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <span class="blog-tag">Setup</span>
+              <span class="blog-date">May 1, 2026</span>
+            </div>
+            <h3 class="blog-title">Gaming Setup Guide for Beginners</h3>
+            <p class="blog-excerpt">Everything you need to build your first gaming setup from scratch. Budget-friendly picks included.</p>
+            <a href="#" class="blog-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section class="section trust" id="trust">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-feature">
+          <div class="trust-icon"><i class="fas fa-shield-halved"></i></div>
+          <h3>100% Authentic</h3>
+          <p>Every product comes with manufacturer warranty. Zero counterfeits, guaranteed.</p>
+        </div>
+        <div class="trust-feature">
+          <div class="trust-icon"><i class="fas fa-truck-fast"></i></div>
+          <h3>Fast Delivery</h3>
+          <p>Nationwide delivery across Libya. Free shipping on orders over 500 LYD.</p>
+        </div>
+        <div class="trust-feature">
+          <div class="trust-icon"><i class="fas fa-rotate-left"></i></div>
+          <h3>14-Day Returns</h3>
+          <p>Not satisfied? Return any product within 14 days for a full refund. No questions asked.</p>
+        </div>
+        <div class="trust-feature">
+          <div class="trust-icon"><i class="fas fa-headset"></i></div>
+          <h3>24/7 Support</h3>
+          <p>Reach us on WhatsApp, phone, or live chat. Average response time: 15 minutes.</p>
+        </div>
+        <div class="trust-feature">
+          <div class="trust-icon"><i class="fas fa-tags"></i></div>
+          <h3>Price Match</h3>
+          <p>Found it cheaper elsewhere? We'll match any verified price from a Libyan retailer.</p>
+        </div>
+        <div class="trust-feature">
+          <div class="trust-icon"><i class="fas fa-lock"></i></div>
+          <h3>Secure Checkout</h3>
+          <p>256-bit SSL encryption. Your payment and personal data is always protected.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment Methods -->
+  <section class="section payments">
+    <div class="container">
+      <div class="payments-bar">
+        <h3 class="payments-title">Accepted Payment Methods</h3>
+        <div class="payments-icons">
+          <div class="payment-method">
+            <i class="fab fa-cc-visa"></i>
+            <span>Visa</span>
+          </div>
+          <div class="payment-method">
+            <i class="fab fa-cc-mastercard"></i>
+            <span>Mastercard</span>
+          </div>
+          <div class="payment-method">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Cash on Delivery</span>
+          </div>
+          <div class="payment-method">
+            <i class="fas fa-building-columns"></i>
+            <span>Bank Transfer</span>
+          </div>
+          <div class="payment-method">
+            <i class="fas fa-mobile-screen"></i>
+            <span>Mobile Wallet</span>
+          </div>
+          <div class="payment-method">
+            <i class="fas fa-credit-card"></i>
+            <span>Installments</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section newsletter">
+    <div class="container">
+      <div class="newsletter-card">
+        <div class="newsletter-content">
+          <h2 class="newsletter-title">Get Exclusive Deals First</h2>
+          <p class="newsletter-text">Subscribe for flash sale alerts, new arrivals, and member-only discounts. No spam, just deals.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email address" required />
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Subscribe</button>
+          </form>
+          <p class="newsletter-note">Join 8,000+ gamers. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <div class="footer-logo">
+            <div class="logo-hex footer-hex">
+              <span class="logo-hex-ms">MS</span>
+            </div>
+            <div class="logo-text">
+              <span class="logo-name">متجر <span class="accent">سوني</span></span>
+              <span class="logo-tagline">بيت الجيمرز · MS Store</span>
+            </div>
+          </div>
+          <p class="footer-desc">بيت الجيمرز في زوارة — كونسولات، أكسسوارات، بطاقات وتحميل حصري. Libya's gaming destination in Zuwarah since 2024.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#">PlayStation</a></li>
+            <li><a href="#">Xbox</a></li>
+            <li><a href="#">PC Gaming</a></li>
+            <li><a href="#">Games</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Monitors</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">Returns & Refunds</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Warranty Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Affiliates</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="contact-list">
+            <li><i class="fab fa-whatsapp"></i> +218 91 XXX XXXX</li>
+            <li><i class="fas fa-phone"></i> +218 21 XXX XXXX</li>
+            <li><i class="fas fa-envelope"></i> support@sonystore.ly</li>
+            <li><i class="fas fa-map-marker-alt"></i> زوارة، ليبيا · Zuwarah, Libya</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Sony Store Libya. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/218913518615" class="whatsapp-float" id="whatsappFloat" target="_blank" rel="noopener">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-label">Chat with us</span>
+    <span class="whatsapp-pulse"></span>
+  </a>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+      <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your cart is empty</p>
+        <a href="#featured" class="btn btn-primary">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span class="cart-total-amount" id="cartTotal">0 LYD</span>
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" id="checkoutBtn">
+        <i class="fas fa-lock"></i> Secure Checkout
+      </button>
+      <p class="cart-note"><i class="fas fa-truck"></i> Free delivery on orders over 500 LYD</p>
+    </div>
+  </div>
+
+  <!-- Wishlist Sidebar -->
+  <div class="cart-overlay" id="wishlistOverlay"></div>
+  <div class="cart-sidebar" id="wishlistSidebar">
+    <div class="cart-header">
+      <h3><i class="fas fa-heart"></i> My Wishlist</h3>
+      <button class="cart-close" onclick="window._closeWishlistSidebar()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="wishlistItems">
+      <div class="wishlist-empty">
+        <i class="fas fa-heart-crack"></i>
+        <p>Your wishlist is empty</p>
+        <small>Click the ♡ on any product to save it here</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="script.js"></script>
+</body>
+</html>

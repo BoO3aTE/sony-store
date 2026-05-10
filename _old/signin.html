@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — متجر سوني · MS Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+</head>
+<body class="auth-page">
+
+  <!-- Background glow orbs -->
+  <div class="auth-bg">
+    <div class="auth-orb auth-orb-1"></div>
+    <div class="auth-orb auth-orb-2"></div>
+  </div>
+
+  <div class="auth-container">
+
+    <!-- Logo -->
+    <a href="index.html" class="auth-logo">
+      <div class="logo-hex"><span class="logo-hex-ms">MS</span></div>
+      <div class="auth-logo-text">
+        <span>متجر <span class="accent">سوني</span></span>
+        <small>MS Store</small>
+      </div>
+    </a>
+
+    <!-- Card -->
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h1 class="auth-title">Welcome back.</h1>
+        <p class="auth-subtitle">Sign in to your account to access your wishlist and orders.</p>
+      </div>
+
+      <!-- Error banner -->
+      <div class="auth-error" id="authError" style="display:none;">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="authErrorMsg">Invalid email or password.</span>
+      </div>
+
+      <!-- Form -->
+      <form class="auth-form" id="signinForm" novalidate>
+
+        <div class="auth-field">
+          <label class="auth-label" for="email">Email address</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-envelope auth-input-icon"></i>
+            <input
+              type="email"
+              id="email"
+              class="auth-input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label class="auth-label" for="password">Password</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-lock auth-input-icon"></i>
+            <input
+              type="password"
+              id="password"
+              class="auth-input"
+              placeholder="Your password"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="auth-input-toggle" id="togglePassword" tabindex="-1">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-row">
+          <label class="auth-check">
+            <input type="checkbox" id="remember" />
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="auth-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary auth-submit" id="submitBtn">
+          Sign In
+        </button>
+
+      </form>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <p class="auth-switch">
+        Don't have an account? <a href="signup.html" class="auth-link">Create one</a>
+      </p>
+    </div>
+
+    <a href="index.html" class="auth-back">
+      <i class="fas fa-arrow-left"></i> Back to store
+    </a>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Wait for Supabase CDN (it's defer, fires before DOMContentLoaded is processed but after defer scripts)
+      // We use a small poll since defer order matters
+      let tries = 0;
+      const waitForSupa = setInterval(() => {
+        tries++;
+        if (window.supabase || tries > 20) {
+          clearInterval(waitForSupa);
+          initSignIn();
+        }
+      }, 100);
+    });
+
+    function initSignIn() {
+      const client = window.supabase?.createClient(
+        'https://joszupwaztftjlimwfap.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impvc3p1cHdhenRmdGpsaW13ZmFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzMjkwOTcsImV4cCI6MjA5MzkwNTA5N30.pFEGxo_hftGKvtLG0uUfQbBGrwbO_ECFSBCvtuzv86I'
+      );
+      if (!client) return;
+
+      // If already signed in, redirect
+      client.auth.getUser().then(({ data: { user } }) => {
+        if (user) redirect();
+      });
+
+      // Password visibility toggle
+      document.getElementById('togglePassword').addEventListener('click', () => {
+        const input = document.getElementById('password');
+        const icon  = document.querySelector('#togglePassword i');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+          input.type = 'password';
+          icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+      });
+
+      // Submit
+      document.getElementById('signinForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email    = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const btn      = document.getElementById('submitBtn');
+
+        hideError();
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
+
+        const { error } = await client.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          showError(error.message || 'Invalid email or password.');
+          btn.disabled = false;
+          btn.innerHTML = 'Sign In';
+        } else {
+          btn.innerHTML = '<i class="fas fa-check"></i> Success!';
+          redirect();
+        }
+      });
+    }
+
+    function redirect() {
+      const target = sessionStorage.getItem('afterSignIn') || 'index.html';
+      sessionStorage.removeItem('afterSignIn');
+      window.location.href = target;
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('authError');
+      document.getElementById('authErrorMsg').textContent = msg;
+      el.style.display = 'flex';
+    }
+
+    function hideError() {
+      document.getElementById('authError').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

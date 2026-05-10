@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "sony-store",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "C:/Users/pc/OneDrive/Desktop/sony-store", "-l", "3456", "--no-clipboard"],
+      "port": 3456
+    }
+  ]
+}
