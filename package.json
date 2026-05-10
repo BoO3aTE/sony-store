@@ -1,0 +1,30 @@
+{
+  "name": "sony-store",
+  "version": "1.0.0",
+  "description": "متجر سوني | MS Store — Gaming store in Zuwarah, Libya. PlayStation, Xbox, Games & Accessories.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoO3aTE/sony-store.git"
+  },
+  "keywords": [
+    "gaming",
+    "playstation",
+    "xbox",
+    "store",
+    "libya"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BoO3aTE/sony-store/issues"
+  },
+  "homepage": "https://github.com/BoO3aTE/sony-store#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
